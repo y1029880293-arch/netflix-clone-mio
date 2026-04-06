@@ -142,11 +142,7 @@ app.delete('/api/movies/:id', (req, res) => {
     }
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log('\n🚀 NETFLIX MULTI-USUARIO');
-    console.log('📱 http://localhost:' + PORT);
-    console.log('👑 ADMIN: admin@netflix.com / admin123');
-    console.log('👤 USER: usuario1@netflix.com / 123');
-    console.log('\n');
+    console.log(`🚀 Server: ${PORT}`);
 });
