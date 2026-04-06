@@ -1,0 +1,326 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Netflix Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #141414;
+    color: white;
+    overflow-x: hidden;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo h2 {
+    color: #e50914;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-login, .btn-logout {
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.modal-content {
+    background: #303030;
+    margin: 10% auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background: #404040;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 1rem;
+    background: #e50914;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.main {
+    margin-top: 80px;
+}
+
+.hero {
+    position: relative;
+    height: 70vh;
+    overflow: hidden;
+}
+
+#heroVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+}
+
+.hero-content {
+    position: absolute;
+    bottom: 4rem;
+    left: 4rem;
+    max-width: 600px;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.5rem;
+}
+
+.admin-panel {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #1f1f1f;
+    padding: 2rem;
+    border-radius: 8px;
+    z-index: 1000;
+    max-width: 400px;
+}
+
+.admin-form input, .admin-form select {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    background: #303030;
+    border: none;
+    border-radius: 4px;
+    color: white;
+}
+
+.admin-form input[type="file"] {
+    padding: 0.5rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 4rem;
+}
+
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    padding: 0 4rem 4rem;
+}
+
+.movie-card {
+    position: relative;
+    cursor: pointer;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.movie-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    padding: 1.5rem 1rem 1rem;
+}
+
+.movie-title {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.movie-year {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.player-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.player-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 2rem auto;
+    height: calc(100vh - 4rem);
+}
+
+.player-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    font-size: 2.5rem;
+    cursor: pointer;
+    z-index: 4000;
+}
+
+.video-player {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .movies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        padding: 0 1rem 2rem;
+    }
+    
+    .hero-content {
+        left: 1rem;
+        bottom: 2rem;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+}
+
+.player-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 3rem;
+    color: white;
+    cursor: pointer;
+    z-index: 5000;
+    background: rgba(0,0,0,0.5);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-close:hover {
+    background: #e50914;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://image.tmdb.org/t/p/original/rr7E0noQt432VKE10xDS2qwTY6I.jpg') center/cover;
+}
+
+.hero video { display: none; } /* Ocultar hasta login */
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #e50914;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.movie-card:hover .delete-btn {
+    opacity: 1;
+}
+
+.movie-card:hover {
+    transform: scale(1.02);
+}

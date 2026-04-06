@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Netflix+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <h2>NETFLIX</h2>
+            </div>
+            <div class="auth-buttons">
+                <button id="loginBtn" class="btn-login">Iniciar Sesión</button>
+                <button id="logoutBtn" class="btn-logout" style="display: none;">Cerrar Sesión</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Modal Login -->
+    <div id="loginModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" name="email" placeholder="Usuario@gmail.com" value="" required>
+                <input type="password" id="loginPassword" name="password" placeholder="Contraseña123" value="" required>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <div class="admin-container">
+            <h3>Panel de Administración</h3>
+            <form id="movieForm" enctype="multipart/form-data" class="admin-form">
+                <input type="text" name="title" placeholder="Título" required>
+                <input type="text" name="description" placeholder="Descripción">
+                <input type="number" name="year" placeholder="Año">
+                <input type="text" name="duration" placeholder="Duración (ej: 2h 15m)">
+                <select name="type">
+                    <option value="movie">Película</option>
+                    <option value="series">Serie</option>
+                </select>
+                <input type="file" name="thumbnail" accept="image/*">
+                <input type="file" name="video" accept="video/*">
+                <button type="submit">Agregar Contenido</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero sin autoplay -->
+        <section class="hero">
+            <div class="hero-bg"></div> <!-- Imagen de fondo -->
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 id="heroTitle">Netflix Clone</h1>
+                <p id="heroDesc">Inicia sesión para disfrutar películas y series</p>
+            </div>
+        </section>
+
+        <section class="content-grid">
+            <div class="section-header">
+                <h2>Populares</h2>
+                <button id="adminBtn" style="display: none;">Panel Admin</button>
+            </div>
+            <div id="moviesGrid" class="movies-grid"></div>
+        </section>
+    </main>
+
+    <!-- Player Modal MEJORADO -->
+    <div id="playerModal" class="player-modal" style="display: none;">
+        <div class="player-container">
+            <span class="player-close" onclick="netflix.closePlayer()">&times;</span>
+            <video id="player" class="video-player" controls preload="metadata">
+                Tu navegador no soporta video.
+            </video>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    
+</body>
+</html>
