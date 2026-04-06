@@ -60,7 +60,7 @@ class NetflixClone {
             config.body = JSON.stringify(options.body);
         }
 
-        const response = await fetch(`${this.API_BASE}/api${endpoint}`, config);
+        const response = await fetch(`${this.API_BASE}${endpoint}`, config);
         
         if (!response.ok) {
             const error = await response.text();

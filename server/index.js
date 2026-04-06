@@ -6,10 +6,12 @@ const path = require('path');
 
 const app = express();
 
+// ✅ CORS FIX para móvil + Render
 app.use(cors({
-    origin: ['http://localhost:5000', 'https://netflix-clone-mio-abc.onrender.com'],
+    origin: true,  // ✅ Permite todo
     credentials: true
 }));
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
@@ -38,7 +40,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-// LOGIN SIMPLE
+// ✅ LOGIN
 app.post('/api/auth/login', (req, res) => {
     const { email, password } = req.body;
     const user = users.find(u => u.email === email && u.password === password);
@@ -54,17 +56,17 @@ app.post('/api/auth/login', (req, res) => {
     }
 });
 
-// GET PELÍCULAS
+// ✅ GET PELÍCULAS
 app.get('/api/movies', (req, res) => {
+    console.log('📺 Películas solicitadas:', movies.length);
     res.json(movies);
 });
 
-// ADD PELÍCULA - SOLO ADMIN
+// ✅ ADD PELÍCULA - SOLO ADMIN
 app.post('/api/movies', upload.fields([
     { name: 'thumbnail', maxCount: 1 },
     { name: 'video', maxCount: 1 }
 ]), (req, res) => {
-    // Verificar admin por email en form
     const email = req.body.email;
     const user = users.find(u => u.email === email && u.role === 'admin');
     
@@ -88,7 +90,7 @@ app.post('/api/movies', upload.fields([
     res.json(movie);
 });
 
-// 🎥 PELÍCULAS REALES (sin video hasta login)
+// 🎥 PELÍCULAS DE PRUEBA
 if (movies.length === 0) {
     movies = [
         {
@@ -96,33 +98,30 @@ if (movies.length === 0) {
             title: 'Avengers: Endgame',
             year: 2019,
             duration: '3h 1m',
-            type: 'movie',
-            thumbnail: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTPzoqyfqzocJm7NifBEEfPtCCM1b7rsUxW7kMqlhM5C6gKGhNA',
-            videoUrl: 'https://youtu.be/eRXMdJoXRGQ?si=gQde5NrLSjQJNlw0'  // Vacío → pide login
+            thumbnail: 'https://image.tmdb.org/t/p/w500/rr7E0noQt432VKE10xDS2qwTY6I.jpg',
+            videoUrl: ''
         },
         {
             _id: '2',
             title: 'The Godfather',
             year: 1972,
             duration: '2h 55m',
-            type: 'movie',
-            thumbnail: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTPzoqyfqzocJm7NifBEEfPtCCM1b7rsUxW7kMqlhM5C6gKGhNA',
-            videoUrl: 'https://youtu.be/eRXMdJoXRGQ?si=gQde5NrLSjQJNlw0'
+            thumbnail: 'https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1f5tpwx.jpg',
+            videoUrl: ''
         },
         {
             _id: '3',
             title: 'Breaking Bad S1',
             year: 2008,
             duration: '47m/ep',
-            type: 'series',
-            thumbnail: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTPzoqyfqzocJm7NifBEEfPtCCM1b7rsUxW7kMqlhM5C6gKGhNA',
-            videoUrl: 'https://youtu.be/eRXMdJoXRGQ?si=gQde5NrLSjQJNlw0'
+            thumbnail: 'https://image.tmdb.org/t/p/w500/6h5RNUzqsy20MWreU5XRkYJwkC.jpg',
+            videoUrl: ''
         }
     ];
-    console.log('🎬 Catálogo real cargado');
+    console.log('🎬 3 películas demo cargadas');
 }
 
-// 🗑️ ELIMINAR PELÍCULA - SOLO ADMIN
+// 🗑️ DELETE - SOLO ADMIN
 app.delete('/api/movies/:id', (req, res) => {
     const email = req.body.email;
     const user = users.find(u => u.email === email && u.role === 'admin');
@@ -142,7 +141,10 @@ app.delete('/api/movies/:id', (req, res) => {
     }
 });
 
+// ✅ PUERTO Render
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`🚀 Server: ${PORT}`);
+    console.log(`🚀 Netflix: http://localhost:${PORT}`);
+    console.log(`👑 admin@netflix.com / admin123`);
+    console.log(`👤 usuario1@netflix.com / 123`);
 });
