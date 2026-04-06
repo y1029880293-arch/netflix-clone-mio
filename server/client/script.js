@@ -4,6 +4,7 @@ class NetflixClone {
         this.userRole = localStorage.getItem('userRole') || null;
         this.email = localStorage.getItem('userEmail') || null;
         this.movies = [];
+        this.API_BASE = '';
         this.init();
     }
 
@@ -17,9 +18,8 @@ class NetflixClone {
     // ✅ Hero SOLO IMAGEN (sin video hasta login)
     updateHero() {
         if (this.movies.length > 0 && this.token) {
-            // Solo video si logueado
             const heroVideo = document.getElementById('heroVideo');
-            heroVideo.src = `http://localhost:5000${this.movies[0].videoUrl}`;
+            heroVideo.src = `${this.API_BASE}${this.movies[0].videoUrl}`;  // ✅ FIX
             heroVideo.play();
         } else {
             // Imagen hasta login
@@ -60,7 +60,7 @@ class NetflixClone {
             config.body = JSON.stringify(options.body);
         }
 
-        const response = await fetch(`http://localhost:5000${endpoint}`, config);
+        const response = await fetch(`${this.API_BASE}/api${endpoint}`, config);
         
         if (!response.ok) {
             const error = await response.text();
@@ -230,7 +230,7 @@ class NetflixClone {
         const player = document.getElementById('player');
         const modal = document.getElementById('playerModal');
         
-        player.src = `http://localhost:5000${videoUrl}`;
+        player.src = `${this.API_BASE}${videoUrl}`;
         modal.style.display = 'block';
         
         player.onloadedmetadata = () => {
@@ -245,7 +245,7 @@ const netflix = new NetflixClone();
 document.addEventListener('DOMContentLoaded', () => {
     if (netflix.movies.length > 0) {
         const heroVideo = document.getElementById('heroVideo');
-        heroVideo.src = `http://localhost:5000${netflix.movies[0].videoUrl}`;
+        heroVideo.src = `${netflix.API_BASE}${netflix.movies[0].videoUrl}`;
         document.getElementById('heroTitle').textContent = netflix.movies[0].title;
     }
 });
